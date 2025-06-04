@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+:focus {
+  outline: 3px solid #2563eb;
+  outline-offset: 2px;
+}
+/* Remove focus outline from entire slider */
+input[type="range"]:focus {
+  outline: none;
+}
+
+/* Custom thumb styles for Chrome/Edge/Safari */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: white;
+  border: none;
+  box-shadow: 0 0 0 2px transparent;
+  transition: box-shadow 0.2s ease-in-out;
+}
+input[type="range"]:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 2px #3b82f6; /* Tailwind blue-500 */
+}
+
+/* Firefox */
+input[type="range"]::-moz-range-thumb {
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: white;
+  border: none;
+  box-shadow: 0 0 0 2px transparent;
+  transition: box-shadow 0.2s ease-in-out;
+}
+input[type="range"]:focus::-moz-range-thumb {
+  box-shadow: 0 0 0 2px #3b82f6; /* Tailwind blue-500 */
+}
