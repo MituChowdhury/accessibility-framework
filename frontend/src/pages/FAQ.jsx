@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import AccessibleMap from '../components/AccessibleMap';
 
 export default function FAQ() {
   const [active, setActive] = useState(null);
@@ -35,6 +36,9 @@ export default function FAQ() {
             </div>
           </div>
         ))}
+      </div>
+      <div>
+        <AccessibleMap />
       </div>
     </section>
   );
