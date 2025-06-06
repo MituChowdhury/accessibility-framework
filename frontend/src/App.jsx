@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Header from './components/Header';
 import Navigation from './components/Navigation';
-import AccessibilityToolbar from './components/AccessibilityToolbar';
+import AccessibilityMenu from './components/AccessibilityMenu';
 import Footer from './components/Footer';
 
 import Home from './pages/Home';
@@ -48,7 +48,8 @@ export default function App() {
       <div className={`min-h-screen font-sans transition-all ${highContrast ? 'bg-black text-yellow-100' : 'bg-white text-black'}`} style={{ fontSize: `${fontScale}em` }}>
         <div aria-live="polite" className="sr-only">{statusMessage}</div>
 
-        <AccessibilityToolbar toggleContrast={toggleContrast} zoomIn={zoomIn} zoomOut={zoomOut} />
+        {/* <AccessibilityToolbar toggleContrast={toggleContrast} zoomIn={zoomIn} zoomOut={zoomOut} /> */}
+        {<AccessibilityMenu/>}
         <a href="#main" className="sr-only focus:not-sr-only absolute left-2 top-2 bg-blue-600 text-white p-2 rounded z-50">Skip to main content</a>
 
         <Header />
