@@ -4,6 +4,7 @@
   outline: 3px solid #2563eb;
   outline-offset: 2px;
 }
+
 /* Remove focus outline from entire slider */
 input[type="range"]:focus {
   outline: none;
@@ -20,8 +21,10 @@ input[type="range"]::-webkit-slider-thumb {
   box-shadow: 0 0 0 2px transparent;
   transition: box-shadow 0.2s ease-in-out;
 }
+
 input[type="range"]:focus::-webkit-slider-thumb {
-  box-shadow: 0 0 0 2px #3b82f6; /* Tailwind blue-500 */
+  box-shadow: 0 0 0 2px #3b82f6;
+  /* Tailwind blue-500 */
 }
 
 /* Firefox */
@@ -34,6 +37,57 @@ input[type="range"]::-moz-range-thumb {
   box-shadow: 0 0 0 2px transparent;
   transition: box-shadow 0.2s ease-in-out;
 }
+
 input[type="range"]:focus::-moz-range-thumb {
-  box-shadow: 0 0 0 2px #3b82f6; /* Tailwind blue-500 */
+  box-shadow: 0 0 0 2px #3b82f6;
+  /* Tailwind blue-500 */
+}
+
+/* Text size */
+body.text-md {
+  font-size: 1.125rem;
+  /* 18px */
+}
+
+body.text-lg {
+  font-size: 1.25rem;
+  /* 20px */
+}
+
+/* Stop animations */
+body.stop-animations *,
+body.stop-animations *::before,
+body.stop-animations *::after {
+  animation-play-state: paused !important;
+  transition: none !important;
+}
+
+/* Readable font */
+body.font-readable {
+  font-family: Arial, Helvetica, sans-serif !important;
+  letter-spacing: 0.05em;
+}
+
+/* High contrast */
+body.high-contrast {
+  filter: contrast(200%) brightness(120%) !important;
+  background-color: black !important;
+  color: white !important;
+}
+
+/* Invert colors */
+body.invert-colors {
+  filter: invert(100%) hue-rotate(180deg) !important;
+}
+
+/* Grayscale */
+body.grayscale {
+  filter: grayscale(100%) !important;
+}
+
+/* Highlight links */
+body.highlight-links a {
+  outline: 2px solid #2563eb;
+  /* Tailwind blue-600 */
+  outline-offset: 2px;
 }
