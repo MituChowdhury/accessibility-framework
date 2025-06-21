@@ -75,7 +75,7 @@ const AccessibleCarousel = () => {
 
     return (
         <section
-            className="relative w-full h-64 md:h-96 overflow-hidden rounded-lg"
+            className="relative w-full h-64 md:h-96 overflow-hidden rounded-lg lg:h-[500px]"
             aria-roledescription="carousel"
             aria-label="University Campus Carousel"
         >
