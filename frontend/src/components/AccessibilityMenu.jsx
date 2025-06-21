@@ -115,7 +115,7 @@ const AccessibilityMenu = () => {
     }, []);
 
     return (
-        <div className='flex items-center'>
+        <div>
             {/* Floating Accessibility Button */}
             <button
                 aria-haspopup="true"

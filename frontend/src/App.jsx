@@ -21,7 +21,6 @@ export default function App() {
     <Router>
       <div className= "min-h-screen font-sans transition-all bg-white text-black style={{ fontSize: 1em }}">
 
-        {/* <AccessibilityToolbar toggleContrast={toggleContrast} zoomIn={zoomIn} zoomOut={zoomOut} /> */}
         {<AccessibilityMenu/>}
         <a href="#main" className="sr-only focus:not-sr-only absolute left-2 top-2 bg-blue-600 text-white p-2 rounded z-50">Skip to main content</a>
 

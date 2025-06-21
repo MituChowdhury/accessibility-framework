@@ -14,7 +14,7 @@ const Navigation = () => {
     setDropdownOpen(prev => !prev);
   };
   return (
-    <nav className="bg-white border-b border-gray-200 dark:bg-gray-900 dark:border-gray-700" role="navigation" aria-label="Main navigation">
+    <nav className="absolute top-0 left-0 right-0 z-40 bg-transparent" role="navigation" aria-label="Main navigation">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         {/* Logo */}
         <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
