@@ -28,7 +28,7 @@ export default function App() {
         {/* <Header /> */}
         <Navigation />
 
-        <main id="main" className="p-6 space-y-10" role="main">
+        <main id="main" className="p-16 space-y-10" role="main">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/admission" element={<Admission />} />

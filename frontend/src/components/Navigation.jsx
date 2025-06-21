@@ -8,10 +8,9 @@ export default function Navigation() {
   const navigate = useNavigate();
 
   const getLinkClasses = (path) =>
-    `block py-2 pl-3 pr-4 rounded md:p-0 ${
-      location.pathname === path
-        ? 'text-blue-700 font-semibold'
-        : 'text-gray-800 hover:text-blue-700 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0'
+    `block py-2 pl-3 pr-4 rounded md:p-0 ${location.pathname === path
+      ? 'text-blue-700 font-semibold'
+      : 'text-gray-800 hover:text-blue-700 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0'
     }`;
 
   const handleSearchSubmit = (e) => {
@@ -22,8 +21,10 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="bg-white border-gray-200" role="navigation" aria-label="Main navigation">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+    <nav className="fixed top-0 left-0 right-0 z-40
+    bg-white bg-opacity-90 backdrop-blur-sm
+    border-b border-gray-200" role="navigation" aria-label="Main navigation">
+      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
         {/* Logo */}
         <Link to="/" className="flex items-center">
           <img src="/sust-logo.png" className="h-10 mr-3" alt="SUST Logo" />

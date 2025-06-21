@@ -145,7 +145,7 @@ const AccessibilityMenu = () => {
                     aria-modal="true"
                     aria-label="Accessibility options"
                     tabIndex={-1}
-                    className="fixed top-0 bottom-0 left-0 z-50 w-80 overflow-y-auto bg-white shadow-lg p-4 text-gray-900 dark:bg-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400 scrollbar-thin scrollbar-thumb-gray-400 hover:scrollbar-thumb-gray-500"
+                    className="fixed top-0 bottom-0 left-0 z-50 w-80 overflow-y-auto shadow-lg p-4 dark:bg-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400 scrollbar-thin scrollbar-thumb-gray-400 hover:scrollbar-thumb-gray-500"
                 >
                     <h2 className="text-lg font-semibold mb-4">Accessibility Options</h2>
 
