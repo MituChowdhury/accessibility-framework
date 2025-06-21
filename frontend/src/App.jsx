@@ -14,14 +14,15 @@ import Results from './pages/Results';
 import FAQ from './pages/FAQ';
 import Help from './pages/Help';
 import Feedback from './pages/Feedback';
+import SearchResults from './pages/SearchResults';
 
 export default function App() {
 
   return (
     <Router>
-      <div className= "min-h-screen font-sans transition-all bg-white text-black style={{ fontSize: 1em }}">
+      <div className="min-h-screen font-sans transition-all bg-white text-black style={{ fontSize: 1em }}">
 
-        {<AccessibilityMenu/>}
+        {<AccessibilityMenu />}
         <a href="#main" className="sr-only focus:not-sr-only absolute left-2 top-2 bg-blue-600 text-white p-2 rounded z-50">Skip to main content</a>
 
         {/* <Header /> */}
@@ -37,6 +38,7 @@ export default function App() {
             <Route path="/faq" element={<FAQ />} />
             <Route path="/help" element={<Help />} />
             <Route path="/feedback" element={<Feedback />} />
+            <Route path="/search" element={<SearchResults />} />
           </Routes>
         </main>
 
