@@ -3,7 +3,7 @@ import React from 'react';
 export default function Footer() {
   return (
     <footer
-      className="fixed bottom-0 left-0 w-full bg-gray-800 border-gray-700 text-center text-sm p-4"
+      className="fixed bottom-0 left-0 z-40 w-full bg-gray-800 border-gray-700 text-center text-sm p-4"
       role="contentinfo"
     >
       <p className="text-gray-300">&copy; 2025 Demo Accessible University. All rights reserved.</p>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 
-export default function InteractiveTranscript({ videoRef, src }) {
+export default function InteractiveTranscript({ videoRef, src, setShowTranscript }) {
   const [captions, setCaptions] = useState([]);
   const [currentTime, setCurrentTime] = useState(0);
   const containerRef = useRef(null);
@@ -66,8 +66,8 @@ export default function InteractiveTranscript({ videoRef, src }) {
     vid.addEventListener('timeupdate', handleTime);
     return () => vid.removeEventListener('timeupdate', handleTime);
   }, [videoRef]);
+  // Auto-scroll active line
 
-  // 🔁 Auto-scroll active line
   useEffect(() => {
     if (activeLineRef.current && containerRef.current) {
       const container = containerRef.current;
@@ -79,31 +79,47 @@ export default function InteractiveTranscript({ videoRef, src }) {
       });
     }
   }, [currentTime]);
+  // Keyboard jump support
 
-  // ⌨️ Keyboard jump support
   const handleKeyDown = (e, startTime) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       if (videoRef.current) {
         videoRef.current.currentTime = startTime;
+        videoRef.current.focus();
       }
     }
   };
 
   return (
-    <div className="h-full">
-      <div className="flex justify-between items-center mb-2">
-        <div className="px-4 py-2 border-b font-semibold">Transcript</div>
+    <div className="h-full max-h-[90vh]">
+      <div className="flex justify-between items-center mb-2 px-4 py-2 border-b border-gray-300">
+        <div className="font-semibold text-base text-black" id="transcript-heading">
+          Transcript
+        </div>
+        <button
+          onClick={() => setShowTranscript(false)}
+          title="Close Transcript"
+          aria-label="Close transcript"
+          className="cursor-pointer text-gray-400 hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-500 rounded text-xl leading-none px-2"
+        >
+          X
+        </button>
       </div>
+
+
       <div
         ref={containerRef}
-        className="h-[340px] overflow-y-auto p-3 text-sm space-y-2"
+        className="h-[340px] overflow-y-auto p-3 text-sm space-y-2 focus:outline-none"
         style={{ overscrollBehavior: 'contain' }}
+        role="region"
+        aria-labelledby="transcript-heading"
+        tabIndex={0}
       >
         {captions.length > 0 ? (
           captions.map((c, i) => {
             const isActive = currentTime >= c.start && currentTime <= c.end;
-            const baseStyle = 'cursor-pointer rounded p-2 transition';
+            const baseStyle = 'cursor-pointer rounded p-2 transition focus:ring-2 focus:ring-blue-500';
             const typeStyle = c.type === 'visual'
               ? 'bg-pink-100 text-pink-900'
               : 'bg-blue-100 text-blue-900';
@@ -116,6 +132,7 @@ export default function InteractiveTranscript({ videoRef, src }) {
                 onClick={() => {
                   if (videoRef.current) {
                     videoRef.current.currentTime = c.start;
+                    videoRef.current.focus();
                   }
                 }}
                 onKeyDown={(e) => handleKeyDown(e, c.start)}
@@ -136,5 +153,3 @@ export default function InteractiveTranscript({ videoRef, src }) {
     </div>
   );
 }
-
-
