@@ -1,36 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
+import { renderToStaticMarkup } from "react-dom/server";
 import {
-  FaUniversity,
-  FaBuilding,
-  FaUtensils,
-  FaLandmark,
-  FaFlask,
-  FaBed,
-  FaMapMarkerAlt,
-  FaMosque,
-  FaStethoscope,
-  FaFootballBall,
-  FaWarehouse,
-  FaBook,
+  FaUniversity, FaBuilding, FaUtensils, FaLandmark, FaFlask,
+  FaBed, FaMapMarkerAlt, FaMosque, FaStethoscope, FaFootballBall,
+  FaWarehouse, FaBook
 } from "react-icons/fa";
 
+// Color and icon mappings
 const iconColors = {
-  academic: "#1E40AF", // blue-800
-  admin: "#6B7280", // gray-500
-  food: "#EA580C", // orange-600
-  auditorium: "#7C3AED", // purple-600
-  recreation: "#16A34A", // green-600
-  research: "#0D9488", // teal-600
-  library: "#CA8A04", // yellow-700 (gold)
-  workshop: "#7C2D12", // brown-800
-  dormitory: "#B91C1C", // red-700
-  bank: "#111827", // black-ish
-  interest: "#DB2777", // pink-600
-  mosque: "#166534", // green-700 (dark green)
-  medical: "#7F1D1D", // red-900 (maroon)
+  academic: "#1E40AF", admin: "#6B7280", food: "#EA580C",
+  auditorium: "#7C3AED", recreation: "#16A34A", research: "#0D9488",
+  library: "#CA8A04", workshop: "#7C2D12", dormitory: "#B91C1C",
+  bank: "#111827", interest: "#DB2777", mosque: "#166534", medical: "#7F1D1D",
 };
 
 const categoryIcons = {
@@ -49,101 +33,91 @@ const categoryIcons = {
   medical: <FaStethoscope color="white" size={16} />,
 };
 
-function createDivIcon(color, iconSvg) {
-  // Wrap the icon SVG string in a colored circle div.
-  // We use a small container with inline SVG icon in white color.
-  return L.divIcon({
-    html: `
-      <div style="
-        background-color: ${color};
-        width: 32px;
-        height: 32px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        box-shadow: 0 0 3px rgba(0,0,0,0.4);
-        border: 2px solid white;
-      ">
-        ${iconSvg}
-      </div>
-    `,
-    className: "", // Remove default leaflet styles
-    iconSize: [32, 32],
-    iconAnchor: [16, 32],
-    popupAnchor: [0, -32],
-  });
-}
-
-// Convert react-icons component to SVG string for embedding inside DivIcon
-import { renderToStaticMarkup } from "react-dom/server";
+// Reusable icon generator with caching
+const iconCache = {};
+const getIcon = (type) => {
+  if (!iconCache[type]) {
+    const color = iconColors[type] || "#2563EB";
+    const icon = categoryIcons[type] || <FaMapMarkerAlt color="white" size={16} />;
+    const svg = renderToStaticMarkup(icon);
+    iconCache[type] = L.divIcon({
+      html: `<div style="background-color: ${color}; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 3px rgba(0,0,0,0.4);">${svg}</div>`,
+      className: "",
+      iconSize: [32, 32],
+      iconAnchor: [16, 32],
+      popupAnchor: [0, -32],
+    });
+  }
+  return iconCache[type];
+};
 
 const AccessibleMap = () => {
   const [activeCategory, setActiveCategory] = useState(null);
 
-  const filteredLocations = activeCategory
-    ? locations.filter((loc) => loc.type === activeCategory)
-    : locations;
+  const filteredLocations = useMemo(() =>
+    activeCategory ? locations.filter(loc => loc.type === activeCategory) : locations,
+    [activeCategory]
+  );
 
-  const uniqueCategories = [...new Set(locations.map((loc) => loc.type))];
+  const uniqueCategories = [...new Set(locations.map(loc => loc.type))];
 
   return (
-    <div className="flex flex-col md:flex-row h-[85vh] w-full border rounded-xl shadow-md overflow-hidden">
+    <div className="flex flex-col md:flex-row w-full h-[85vh] border rounded-xl shadow-md overflow-hidden bg-white">
       {/* Sidebar */}
       <aside
-        className="md:w-1/4 w-full bg-white p-4 overflow-y-auto border-r focus:outline-none"
-        aria-label="Campus Map Category Navigation"
+  className="md:w-1/4 w-full bg-white p-4 overflow-y-auto"
+  aria-label="Campus Map Category Navigation"
+>
+  <h2 className="text-xl font-semibold mb-4 text-gray-900">Filter by Category</h2>
+  <nav className="flex flex-wrap gap-2">
+    {uniqueCategories.map((type) => (
+      <button
+        key={type}
+        className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-1
+          ${
+            activeCategory === type
+              ? "bg-blue-600 text-white shadow-md"
+              : "bg-gray-100 text-gray-700 hover:bg-blue-100"
+          }`}
+        onClick={() => setActiveCategory(type === activeCategory ? null : type)}
+        aria-pressed={activeCategory === type}
       >
-        <h2 className="text-xl font-bold mb-4 text-gray-800">Filter by Category</h2>
-        <nav className="space-y-2">
-          {uniqueCategories.map((type) => (
-            <button
-              key={type}
-              className={`flex items-center gap-2 px-3 py-2 rounded-md w-full text-left transition font-medium focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 ${
-                activeCategory === type ? "bg-blue-600 text-white" : "text-gray-700 hover:bg-gray-100"
-              }`}
-              onClick={() => setActiveCategory(type === activeCategory ? null : type)}
-              aria-pressed={activeCategory === type}
-            >
-              <span className="text-lg">{categoryIcons[type]}</span>
-              <span className="capitalize">{type}</span>
-            </button>
-          ))}
-        </nav>
-      </aside>
+        <span className="text-base">{categoryIcons[type]}</span>
+        <span className="capitalize">{type}</span>
+      </button>
+    ))}
+  </nav>
+</aside>
+
 
       {/* Map */}
       <MapContainer
         center={[24.9194, 91.8316]}
         zoom={17}
-        scrollWheelZoom
+        scrollWheelZoom={false}
         className="flex-1 h-full z-0"
         aria-label="Interactive map of Shahjalal University of Science and Technology campus"
+        aria-roledescription="map"
       >
         <TileLayer
           attribution='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {filteredLocations.map((loc, index) => {
-          const iconColor = iconColors[loc.type] || "#2563EB"; // fallback blue
-          const iconComponent = categoryIcons[loc.type] || <FaMapMarkerAlt color="white" size={16} />;
-          // Convert React icon to SVG string
-          const iconSvg = renderToStaticMarkup(iconComponent);
-
-          return (
-            <Marker
-              key={index}
-              position={loc.coords}
-              title={loc.name}
-              icon={createDivIcon(iconColor, iconSvg)}
-            >
-              <Popup>
-                <p className="font-semibold">{loc.name}</p>
+        {filteredLocations.map((loc, index) => (
+          <Marker
+            key={index}
+            position={loc.coords}
+            title={loc.name}
+            icon={getIcon(loc.type)}
+          >
+            <Popup>
+              <div role="document" aria-labelledby={`marker-title-${index}`}>
+                <p id={`marker-title-${index}`} className="font-semibold">{loc.name}</p>
                 <p className="text-sm capitalize">Category: {loc.type}</p>
-              </Popup>
-            </Marker>
-          );
-        })}
+              </div>
+            </Popup>
+          </Marker>
+        ))}
       </MapContainer>
     </div>
   );

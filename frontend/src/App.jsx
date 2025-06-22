@@ -15,6 +15,8 @@ import FAQ from './pages/FAQ';
 import Help from './pages/Help';
 import Feedback from './pages/Feedback';
 import SearchResults from './pages/SearchResults';
+import Campus from './pages/Campus';
+
 
 export default function App() {
 
@@ -36,6 +38,7 @@ export default function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/results" element={<Results />} />
             <Route path="/faq" element={<FAQ />} />
+            <Route path="/campus" element={<Campus />} />
             <Route path="/help" element={<Help />} />
             <Route path="/feedback" element={<Feedback />} />
             <Route path="/search" element={<SearchResults />} />

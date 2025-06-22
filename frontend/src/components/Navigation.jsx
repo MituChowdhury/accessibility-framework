@@ -50,7 +50,7 @@ export default function Navigation() {
               <Link to="/profile" className={getLinkClasses('/profile')}>Profile</Link>
             </li>
             <li>
-              <Link to="/faq" className={getLinkClasses('/faq')}>FAQ</Link>
+              <Link to="/campus" className={getLinkClasses('/campus')}>Campus</Link>
             </li>
           </ul>
         </div>
