@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const programs = [
     {
@@ -49,7 +50,7 @@ const programs = [
     },
     {
         name: "Architecture",
-        slug: "architecture",
+        slug: "arc",
         description:
             "Develop skills to design sustainable, innovative, and functional spaces.",
         image: (
@@ -172,13 +173,16 @@ export default function ProgramsGrid() {
                         <div className="mb-4">{image}</div>
                         <h3 className="text-xl font-semibold text-gray-800 mb-2">{name}</h3>
                         <p className="text-gray-600 flex-grow">{description}</p>
-                        <a
-                            href={`/admission/${slug}`}
+                        <Link
+                            to={{
+                                pathname: `/admission/${slug}`,
+                            }}
                             className="mt-6 inline-block self-start px-5 py-2 bg-gray-800 text-white rounded font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 hover:bg-blue-600"
                             aria-label={`Apply now for ${name}`}
                         >
                             Apply Now
-                        </a>
+                        </Link>
+
                     </article>
                 ))}
             </div>
