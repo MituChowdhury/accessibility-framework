@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { AiOutlineUpload } from 'react-icons/ai';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
@@ -19,6 +19,8 @@ const departmentMap = {
 };
 
 export default function AdmissionForm() {
+    const navigate = useNavigate();
+
     const { slug } = useParams();
     const department = departmentMap[slug];
 
@@ -122,7 +124,7 @@ export default function AdmissionForm() {
             }
         }
         setFormStatus('Form submitted successfully!');
-
+        navigate("/form-preview", { state: data });
 
     };
     const fieldFocusMap = {
@@ -204,7 +206,12 @@ export default function AdmissionForm() {
                             <input
                                 id="email"
                                 type="email"
-                                {...register('email', { required: 'Email is required.' })}
+                                {...register('email', {
+                                    required: 'Email is required.', pattern: {
+                                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                                        message: 'Please enter a valid email',
+                                    },
+                                })}
                                 className="w-full px-2 py-1 border rounded-sm"
                                 aria-required="true"
                                 aria-invalid={!!errors.email}
@@ -887,7 +894,6 @@ export default function AdmissionForm() {
                         {formStatus}
                     </div>
                 )}
-
             </form>
         </div>
     );

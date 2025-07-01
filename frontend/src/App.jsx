@@ -17,6 +17,7 @@ import Feedback from './pages/Feedback';
 import SearchResults from './pages/SearchResults';
 import Campus from './pages/Campus';
 import AccessibleForm from './pages/AccessibleForm';
+import FormPreview from './pages/FormPreview';
 
 export default function App() {
 
@@ -35,6 +36,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/admission" element={<Admission />} />
             <Route path="/admission/:slug" element={<AccessibleForm />} />
+            <Route path="/form-preview" element={<FormPreview />} />
             <Route path="/courses" element={<Courses />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/results" element={<Results />} />

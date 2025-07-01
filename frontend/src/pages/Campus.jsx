@@ -8,12 +8,12 @@ const Campus = () => {
             className="w-full py-12 md:py-20 px-4 md:px-10 flex flex-col md:flex-row items-center md:items-start gap-20 bg-white"
         >
             {/* Left: Accessible Map */}
-            <div className="md:w-1/2 w-full">
+            <div className="md:w-9/12 w-full">
                 <AccessibleMap />
             </div>
 
             {/* Right: Campus Info */}
-            <div className="md:w-1/2 w-full text-center md:text-left space-y-8">
+            <div className="md:w-1/4 w-full text-center md:text-left space-y-8">
                 {/* Campus Description */}
                 <div>
                     <h2
