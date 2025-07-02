@@ -3,7 +3,7 @@ import AccessibleCarousel from '../components/AccessibleCarousel';
 import AnnouncementTicker from '../components/AnnouncementTicker';
 import CampusOverview from '../components/CampusOverview';
 import Programs from '../components/Programs';
-import Campus from './CampusMap';
+import CampusMap from '../components/CampusMap';
 
 export default function Home() {
   return (
@@ -13,8 +13,8 @@ export default function Home() {
         <AccessibleCarousel />
       </section>
 
-      <section aria-labelledby="announcement-ticker-section" className="relative">
-        <h2 id="announcement-ticker-section" className="sr-only">University Announcements</h2>
+      <section aria-labelledby="announcement-section" className="relative">
+        <h2 id="announcement-section" className="sr-only">University Announcements</h2>
         <AnnouncementTicker />
       </section>
 
@@ -31,7 +31,7 @@ export default function Home() {
 
       <section aria-labelledby="campus-section" className="relative">
         <h2 id="campus-section" className="sr-only">Campus Map</h2>
-        <Campus />
+        <CampusMap />
       </section>
     </main>
   );

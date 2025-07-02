@@ -5,20 +5,20 @@ const AnnouncementTicker = () => {
   const [stopAnimation, setStopAnimation] = useState(false);
   const tickerRef = useRef(null);
 
-  // Observe body for 'stop-animations'
+  // Observe for 'stop-animations'
   useEffect(() => {
     const observer = new MutationObserver(() => {
-      const shouldStop = document.body.classList.contains('stop-animations');
+      const shouldStop = document.querySelector('.accessible-content').classList.contains('stop-animations');
       setStopAnimation(shouldStop);
     });
 
-    observer.observe(document.body, {
+    observer.observe(document.querySelector('.accessible-content'), {
       attributes: true,
       attributeFilter: ['class'],
     });
 
     // Initial check
-    setStopAnimation(document.body.classList.contains('stop-animations'));
+    setStopAnimation(document.querySelector('.accessible-content').classList.contains('stop-animations'));
 
     return () => observer.disconnect();
   }, []);
@@ -39,7 +39,7 @@ const AnnouncementTicker = () => {
         )}
       >
         <p className="text-sky-800 text-sm md:text-base font-medium">
-          📣 New Admission Notice: Fall 2025 applications are now open! Apply before the deadline to join our vibrant academic community at SUST.
+          📣 New Admission Notice: Admission for the 2024-25 academic year at Shahjalal University of Science and Technology is open now. Apply before the deadline!
         </p>
       </div>
     </div>

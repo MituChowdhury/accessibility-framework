@@ -7,11 +7,15 @@ export default function Navigation() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const getLinkClasses = (path) =>
-    `block py-2 pl-3 pr-4 rounded md:p-0 ${location.pathname === path
+const getLinkClasses = (hash) => {
+  const isActive = window.location.hash === hash;
+  return `block py-2 pl-3 pr-4 rounded md:p-0 ${
+    isActive
       ? 'text-blue-700 font-semibold'
       : 'text-gray-800 hover:text-blue-700 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0'
-    }`;
+  }`;
+};
+
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -38,19 +42,13 @@ export default function Navigation() {
         >
           <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-white md:flex-row md:space-x-8 md:mt-0 md:border-0">
             <li>
-              <Link to="/" className={getLinkClasses('/')}>Home</Link>
+              <a href="#introduction-section" className={getLinkClasses('#introduction-section')}>About</a>
             </li>
             <li>
-              <Link to="/admission" className={getLinkClasses('/admission')}>Admission</Link>
+              <a href="#programs-section" className={getLinkClasses('#programs-section')}>Admission</a>
             </li>
             <li>
-              <Link to="/results" className={getLinkClasses('/results')}>Results</Link>
-            </li>
-            <li>
-              <Link to="/profile" className={getLinkClasses('/profile')}>Profile</Link>
-            </li>
-            <li>
-              <Link to="/campus" className={getLinkClasses('/campus')}>Campus</Link>
+              <a href="#campus-section" className={getLinkClasses('#campus-section')}>Campus</a>
             </li>
           </ul>
         </div>

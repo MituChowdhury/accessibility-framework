@@ -61,7 +61,7 @@ const AccessibilityMenu = () => {
     useEffect(() => {
 
         if (!settingsLoaded) return
-        const body = document.body;
+        const body = document.querySelector('.accessible-content');
 
         // Remove all classes we use
         body.classList.remove(
@@ -73,8 +73,6 @@ const AccessibilityMenu = () => {
             "invert-colors",
             "grayscale",
             "highlight-links",
-            "reading-line",
-            "reading-mask"
         );
 
 
@@ -145,7 +143,7 @@ const AccessibilityMenu = () => {
                     aria-modal="true"
                     aria-label="Accessibility options"
                     tabIndex={-1}
-                    className="fixed top-0 bottom-0 left-0 z-50 w-80 overflow-y-auto shadow-lg p-4 dark:bg-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400 scrollbar-thin scrollbar-thumb-gray-400 hover:scrollbar-thumb-gray-500"
+                    className="fixed top-4 left-4 z-50 w-80 max-h-[90vh] overflow-y-auto shadow-lg p-4 rounded-md bg-white dark:bg-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400 scrollbar-thin scrollbar-thumb-gray-400 hover:scrollbar-thumb-gray-500"
                 >
                     <h2 className="text-lg font-semibold mb-4">Accessibility Options</h2>
 

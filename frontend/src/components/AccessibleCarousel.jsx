@@ -20,17 +20,17 @@ const AccessibleCarousel = () => {
     // Observe body class for 'stop-animations'
     useEffect(() => {
         const observer = new MutationObserver(() => {
-            const shouldStop = document.body.classList.contains('stop-animations');
+            const shouldStop = document.querySelector('.accessible-content').classList.contains('stop-animations');
             setStopAnimation(shouldStop);
         });
 
-        observer.observe(document.body, {
+        observer.observe(document.querySelector('.accessible-content'), {
             attributes: true,
             attributeFilter: ['class'],
         });
 
         // Set initial state
-        setStopAnimation(document.body.classList.contains('stop-animations'));
+        setStopAnimation(document.querySelector('.accessible-content').classList.contains('stop-animations'));
 
         return () => observer.disconnect();
     }, []);
