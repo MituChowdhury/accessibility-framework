@@ -158,7 +158,7 @@ export default function ProgramsGrid() {
 
             <h2
                 id="programs-heading"
-                className="text-3xl font-bold text-gray-900 mb-10 text-center"
+                className="text-3xl md:text-4xl font-bold text-gray-900 mb-10 text-center"
             >
                 Undergraduate Programs
             </h2>

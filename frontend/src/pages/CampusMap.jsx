@@ -5,24 +5,24 @@ const Campus = () => {
     return (
         <section
             aria-labelledby="campus-heading"
-            className="max-w-7xl mx-auto py-12 md:py-20 px-4 md:px-10 flex flex-col md:flex-row items-center md:items-start gap-20 bg-white"
+            className="max-w-7xl mx-auto py-12 md:py-20 px-4 md:px-10 flex flex-col  md:flex-row items-center md:items-start gap-20 bg-white"
         >
             {/* Accessible Map */}
-            <div className="md:w-9/12 w-full">
+            <div className="md:w-2/3 w- w-full">
                 <AccessibleMap />
             </div>
 
             {/* Campus Info */}
-            <div className="md:w-1/4 w-full text-center md:text-left space-y-8">
+            <div className="md:w-1/3 w-full text-center md:text-left space-y-8">
                 <div>
                     <h2
                         id="campus-heading"
                         className="text-3xl font-bold md:text-4xl font-heading  mb-4 text-gray-900"
                     >
-                        Explore Our Campus!
+                        Visit Our Campus!
                     </h2>
                     <p className="text-lg text-gray-700 leading-relaxed font-body">
-Discover the wonders of Cornell's campus.                    </p>
+                        Discover the wonders of our campus.                    </p>
                 </div>
 
                 <div>

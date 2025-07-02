@@ -1,5 +1,6 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React from 'react';
 import AccessibleCarousel from '../components/AccessibleCarousel';
+import AnnouncementTicker from '../components/AnnouncementTicker';
 import CampusOverview from '../components/CampusOverview';
 import Programs from '../components/Programs';
 import Campus from './CampusMap';
@@ -12,21 +13,26 @@ export default function Home() {
         <AccessibleCarousel />
       </section>
 
-      <section aria-labelledby="introduction-section" className='relative'>
+      <section aria-labelledby="announcement-ticker-section" className="relative">
+        <h2 id="announcement-ticker-section" className="sr-only">University Announcements</h2>
+        <AnnouncementTicker />
+      </section>
+
+
+      <section aria-labelledby="introduction-section" className="relative">
         <h2 id="introduction-section" className="sr-only">Campus Overview With Introductory Video</h2>
         <CampusOverview />
       </section>
 
-      <section aria-labelledby="programs-section" className='relative'>
+      <section aria-labelledby="programs-section" className="relative">
         <h2 id="programs-section" className="sr-only">University Programs</h2>
         <Programs />
       </section>
 
-      <section aria-labelledby="campus-section" className='relative'>
-        <h2 id="campus-section" className="sr-only">University Programs</h2>
+      <section aria-labelledby="campus-section" className="relative">
+        <h2 id="campus-section" className="sr-only">Campus Map</h2>
         <Campus />
       </section>
     </main>
   );
 }
-
