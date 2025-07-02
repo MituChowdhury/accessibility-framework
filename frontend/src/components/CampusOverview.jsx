@@ -1,5 +1,5 @@
 import React from "react";
-import AccessibleVideoPlayer from "./AccessibleVideoPlayer"; // or adjust path as needed
+import AccessibleVideoPlayer from "./AccessibleVideoPlayer";
 
 
 const CampusOverview = () => {

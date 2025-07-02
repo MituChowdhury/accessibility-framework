@@ -15,7 +15,7 @@ import FAQ from './pages/FAQ';
 import Help from './pages/Help';
 import Feedback from './pages/Feedback';
 import SearchResults from './pages/SearchResults';
-import Campus from './pages/Campus';
+import Campus from './pages/CampusMap';
 import AccessibleForm from './pages/AccessibleForm';
 import FormPreview from './pages/FormPreview';
 

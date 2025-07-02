@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import AccessibleCarousel from '../components/AccessibleCarousel';
 import CampusOverview from '../components/CampusOverview';
 import Programs from '../components/Programs';
-import Campus from './Campus';
+import Campus from './CampusMap';
 
 export default function Home() {
   return (

@@ -6,7 +6,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import {
   FaUniversity, FaBuilding, FaUtensils, FaLandmark, FaFlask,
   FaBed, FaMapMarkerAlt, FaMosque, FaStethoscope, FaFootballBall,
-  FaWarehouse, FaBook
+  FaWarehouse, FaBook, FaChevronLeft, FaChevronRight
 } from "react-icons/fa";
 
 // Color and icon mappings
@@ -52,6 +52,7 @@ const getIcon = (type) => {
 };
 
 const AccessibleMap = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [activeCategory, setActiveCategory] = useState(null);
 
   const filteredLocations = useMemo(() =>
@@ -64,30 +65,46 @@ const AccessibleMap = () => {
   return (
     <div className="flex flex-col md:flex-row w-full h-[85vh] border rounded-xl shadow-md overflow-hidden bg-white">
       {/* Sidebar */}
+      {/* Collapsible Sidebar */}
       <aside
-  className="md:w-1/4 w-full bg-white p-4 overflow-y-auto"
-  aria-label="Campus Map Category Navigation"
->
-  <h2 className="text-xl font-semibold mb-4 text-gray-900">Filter by Category</h2>
-  <nav className="flex flex-wrap gap-2">
-    {uniqueCategories.map((type) => (
-      <button
-        key={type}
-        className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-1
-          ${
-            activeCategory === type
-              ? "bg-blue-600 text-white shadow-md"
-              : "bg-gray-100 text-gray-700 hover:bg-blue-100"
-          }`}
-        onClick={() => setActiveCategory(type === activeCategory ? null : type)}
-        aria-pressed={activeCategory === type}
+        className={`transition-all duration-300 ease-in-out bg-white overflow-y-auto ${isSidebarOpen ? "md:w-1/4 w-full p-4" : "w-12 md:w-12 p-1"}`}
+        aria-label="Campus Map Category Navigation"
       >
-        <span className="text-base">{categoryIcons[type]}</span>
-        <span className="capitalize">{type}</span>
-      </button>
-    ))}
-  </nav>
-</aside>
+        <div className="flex justify-between items-center mb-2">
+          {isSidebarOpen && (
+            <h2 className="text-xl font-semibold text-gray-900">Filter by Category</h2>
+          )}
+          <button
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            aria-expanded={isSidebarOpen}
+            aria-controls="category-filter"
+            aria-label={isSidebarOpen ? "Collapse filter sidebar" : "Expand filter sidebar"}
+            className="p-2 rounded-full hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-600"
+          >
+            {isSidebarOpen ? <FaChevronLeft /> : <FaChevronRight />}
+          </button>
+        </div>
+
+        {isSidebarOpen && (
+          <nav id="category-filter" className="flex flex-wrap gap-2">
+            {uniqueCategories.map((type) => (
+              <button
+                key={type}
+                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-1
+                  ${activeCategory === type
+                    ? "bg-blue-600 text-white shadow-md"
+                    : "bg-gray-100 text-gray-700 hover:bg-blue-100"
+                  }`}
+                onClick={() => setActiveCategory(type === activeCategory ? null : type)}
+                aria-pressed={activeCategory === type}
+              >
+                <span className="text-base">{categoryIcons[type]}</span>
+                <span className="capitalize">{type}</span>
+              </button>
+            ))}
+          </nav>
+        )}
+      </aside>
 
 
       {/* Map */}
