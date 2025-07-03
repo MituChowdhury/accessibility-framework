@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { useParams, useNavigate } from 'react-router-dom';
 import { AiOutlineUpload } from 'react-icons/ai';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import imageCompression from 'browser-image-compression';
+import AccessibleCaptcha from '../components/AccessibleCaptcha';
 
 
 dayjs.extend(customParseFormat);
@@ -24,12 +25,15 @@ export default function AdmissionForm() {
     const { slug } = useParams();
     const department = departmentMap[slug];
 
-    const { register, handleSubmit, formState: { errors }, setError, setValue, watch } = useForm();
+    const { control, register, handleSubmit, setError, clearErrors, watch, formState: { errors } } = useForm();
+
 
     // State to track first error field key
     const [firstErrorKey, setFirstErrorKey] = useState(null);
 
     const [formStatus, setFormStatus] = useState('');
+    const [captchaValid, setCaptchaValid] = useState(false);
+
 
     // List your fields in the order they appear in the form
     const fieldOrder = [
@@ -54,6 +58,7 @@ export default function AdmissionForm() {
         'motherPhone',
         'photo',
         'signature',
+        'captcha',
         'declaration',
     ];
 
@@ -848,6 +853,35 @@ export default function AdmissionForm() {
                             )}
                         </div>
                     </div>
+                </fieldset>
+                <fieldset id="captcha">
+                    <legend className="text-base font-semibold mt-6 mb-2">Verification</legend>
+                    <p className="mb-2">Please complete the CAPTCHA below to verify you are human.</p>
+
+                    <Controller
+                        name="captcha"
+                        control={control}
+                        rules={{ required: "CAPTCHA verification is required." }}
+                        render={({ field: { onChange, value } }) => (
+                            <AccessibleCaptcha
+                                onValidation={(valid) => {
+                                    if (valid) {
+                                        onChange("verified"); // set the field value
+                                        clearErrors("captcha"); // clear error if any
+                                    } else {
+                                        onChange(""); // set invalid
+                                        setError("captcha", { type: "manual", message: "CAPTCHA verification is required." });
+                                    }
+                                }}
+                            />
+                        )}
+                    />
+
+                    {errors.captcha && (
+                        <p id="captcha-error" role="alert" className="text-red-600 text-sm mt-1">
+                            {errors.captcha.message}
+                        </p>
+                    )}
                 </fieldset>
 
 
